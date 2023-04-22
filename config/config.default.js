@@ -24,6 +24,10 @@ module.exports = appInfo => {
     },
   };
 
+  config.mongoose = {
+    url: 'mongodb://sam:123456@127.0.0.1:27017/cli-yl',
+  };
+
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',

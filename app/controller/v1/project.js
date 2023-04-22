@@ -1,41 +1,42 @@
 const { Controller } = require('egg');
 
-const ADD_TEMPLATE = [
-  {
-    name: 'vue3 项目模板',
-    npmName: '@imooc.com/template-vue3',
-    version: '1.0.1',
-    value: 'template-vue3',
-  },
-  {
-    name: 'react18项目模板',
-    npmName: '@imooc.com/template-react18',
-    version: '1.0.0',
-    value: 'template-react18',
-  },
-  {
-    name: 'vue-element-admin项目模板',
-    npmName: '@imooc.com/template-vue-element-admin',
-    version: '1.0.0',
-    value: 'template-value-element-admin',
-  },
-];
+// const ADD_TEMPLATE = [
+//   {
+//     name: 'vue3 项目模板',
+//     npmName: '@imooc.com/template-vue3',
+//     version: '1.0.1',
+//     value: 'template-vue3',
+//   },
+//   {
+//     name: 'react18项目模板',
+//     npmName: '@imooc.com/template-react18',
+//     version: '1.0.0',
+//     value: 'template-react18',
+//   },
+//   {
+//     name: 'vue-element-admin项目模板',
+//     npmName: '@imooc.com/template-vue-element-admin',
+//     version: '1.0.0',
+//     value: 'template-value-element-admin',
+//   },
+// ];
 
 class ProjectController extends Controller {
   //  项目模板查询
-  index() {
+  async index() {
     const { ctx } = this;
-    ctx.body = ADD_TEMPLATE;
+    const res = await ctx.model.Project.find({});
+    ctx.body = res;
   }
   // 项目模板查询
-  show() {
+  async show() {
     const { ctx } = this;
     const id = ctx.params.id;
-    const template = ADD_TEMPLATE.find(_ => _.value === id);
-    if (template) {
-      ctx.body = template;
+    const template = await ctx.model.Project.find({ value: id });
+    if (template.length > 0) {
+      ctx.body = template[0];
     } else {
-      ctx.body = '{}';
+      ctx.body = {};
     }
   }
   // 项目模板新增
